@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Park - Parking Spots</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      background: url('main.jpeg') no-repeat center center/cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      color: #333;
+      flex-direction: column;
+      padding: 30px;
+    }
+
+    .spots-container {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      max-width: 600px;
+      width: 100%;
+      text-align: center;
+    }
+
+    h2 {
+      color: #f49b42;
+      margin-bottom: 25px;
+    }
+
+    .spots-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .spot {
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .spot:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    button, a {
+      padding: 10px 20px;
+      background-color: #f49b42;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1em;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.3s;
+    }
+
+    button:hover, a:hover {
+      background-color: #e58928;
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="spots-container">
+    <h2 id="cityTitle">Popular Parking Spots</h2>
+    <div class="spots-list" id="spotsList"></div>
+    <a href="city.html">← Back to City Selection</a>
+  </div>
+
+  <script>
+    const citySpots = {
+      "Ahmedabad": ["Manek Chowk","Law Garden","CG Road","Alpha One Mall","Kankaria Lake","Science City","Sabarmati Riverfront","ISCON Mall"],
+      "Bangalore": ["MG Road","Brigade Road","Koramangala","Whitefield","Indiranagar","Majestic","Forum Mall","Orion Mall"],
+      "Chennai": ["Marina Beach","T Nagar","Velachery","Anna Nagar","Phoenix Market City","Besant Nagar","Express Avenue","Spencer Plaza"],
+      "Delhi": ["Connaught Place","India Gate","Hauz Khas","Karol Bagh","Lajpat Nagar","Rajouri Garden","Saket Select Citywalk","Janpath Market"],
+      "Ernakulam": ["Marine Drive","Broadway Market","Lulu Mall","Vyttila","Kaloor","Palarivattom","High Court Junction","Edappally"],
+      "Faridabad": ["NIT Market","Sector 15 Market","Crown Plaza Mall","Badkhal Lake","Town Park","Old Faridabad","Bata Chowk","Surajkund"],
+      "Goa": ["Baga Beach","Calangute Beach","Anjuna Beach","Candolim","Panaji City Center","Mapusa Market","Colva Beach","Margao"],
+      "Hyderabad": ["Charminar","Banjara Hills","Hitech City","Gachibowli","Kukatpally","Begumpet","Inorbit Mall","Necklace Road"],
+      "Indore": ["Rajwada","Sarafa Bazaar","Vijay Nagar","Treasure Island Mall","Palasia","56 Dukan","Khajrana Temple","MG Road"],
+      "Jaipur": ["Hawa Mahal","Bapu Bazaar","Johri Bazaar","MI Road","Tonk Road","City Palace","Amber Fort","World Trade Park"],
+      "Kochi": ["Lulu Mall","Marine Drive","Fort Kochi","Vyttila","Edappally","Palarivattom","Kaloor","Panampilly Nagar"],
+      "Kolkata": ["Park Street","Howrah Bridge","New Market","Salt Lake","South City Mall","Eco Park","Esplanade","Victoria Memorial"],
+      "Lucknow": ["Hazratganj","Gomti Nagar","Aminabad","Alambagh","Phoenix Palassio Mall","Charbagh","Indira Nagar","Janpath Market"],
+      "Mumbai": ["Gateway of India","Marine Drive","Bandra","Andheri","Powai","Colaba Causeway","Phoenix Mall Lower Parel","Juhu Beach"],
+      "Nagpur": ["Sitabuldi","Futala Lake","Sadar Bazar","MIHAN","Dharampeth","Ambazari Lake","Civil Lines","Wardha Road"],
+      "Ooty": ["Ooty Lake","Botanical Garden","Doddabetta Peak","Charing Cross","Rose Garden","Stone House Area","Commercial Road","Boat House Road"],
+      "Pune": ["Koregaon Park","JM Road","FC Road","Viman Nagar","Camp","Magarpatta","Hinjewadi","Phoenix Market City"],
+      "Ranchi": ["Main Road","Lalpur Chowk","Kanke Road","Harmu","Doranda","Ratu Road","Birsa Chowk","Hindpiri"],
+      "Surat": ["Ghod Dod Road","Adajan","Vesu","Athwa Gate","VR Mall","Sarthana Nature Park","Dumas Beach","Varachha"],
+      "Tirupathi": ["Alipiri Road","Tirumala Temple","Railway Station Area","Leela Mahal Circle","Tata Nagar","Renigunta Road","RC Road","Kapila Theertham"],
+      "Vishakapatanam": ["RK Beach","MVP Colony","Dwaraka Nagar","Gajuwaka","CBM Compound","Rushikonda","Jagadamba Junction","Cinehub Maddilapalem"],
+      "Vijayawada": ["Benz Circle","PVP Mall","Governorpet","One Town","Durga Temple","Auto Nagar","MG Road","Raghavaiah Park"]
+    };
+
+    const city = localStorage.getItem("selectedCity");
+    const spotsList = document.getElementById("spotsList");
+    const cityTitle = document.getElementById("cityTitle");
+
+    if (city && citySpots[city]) {
+      cityTitle.textContent = `Popular Parking Spots in ${city}`;
+      citySpots[city].forEach(spot => {
+        const div = document.createElement("div");
+        div.classList.add("spot");
+        div.textContent = spot;
+        div.addEventListener("click", () => {
+          window.open(`https://www.google.com/maps/search/Parking+near+${encodeURIComponent(spot + " " + city)}`, "_blank");
+        });
+        spotsList.appendChild(div);
+      });
+    } else {
+      cityTitle.textContent = "No city selected!";
+    }
+  </script>
+</body>
+</html>

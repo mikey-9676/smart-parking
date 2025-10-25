@@ -1,0 +1,248 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+}
+
+/* Header */
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: rgba(244, 155, 66, 0.95);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 50px;
+  z-index: 10;
+}
+
+header h1 {
+  font-style: italic;
+  font-weight: bold;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin-left: 20px;
+  font-weight: 500;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+/* Full-screen sections */
+section {
+  height: 100vh;
+  scroll-snap-align: start;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+/* Hero section */
+.hero {
+  background: url('main.jpeg') no-repeat center center/cover;
+  color: #f49b42;
+  text-align: center;
+  position: relative;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+}
+
+.hero h2 {
+  font-size: 3em;
+  font-weight: bold;
+  margin-bottom: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px 20px;
+  border-radius: 10px;
+}
+
+.hero p {
+  font-size: 1.5em;
+  margin-bottom: 30px;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: white;
+}
+
+.hero button {
+  padding: 12px 25px;
+  background-color: #f49b42;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.hero button:hover {
+  background-color: #e58928;
+}
+
+/* Reviews section */
+.reviews {
+  background-color: #fff3e0;
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.reviews h3 {
+  color: #f49b42;
+  font-size: 2.5em;
+  margin-bottom: 40px;
+}
+
+.review-box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}
+
+.review {
+  background: white;
+  border-radius: 15px;
+  padding: 25px;
+  width: 280px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.review:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.review img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+}
+
+.review p {
+  font-size: 1em;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.review h4 {
+  color: #f49b42;
+  font-weight: bold;
+}
+
+/* Contact section */
+.contact {
+  background-color: #333;
+  color: white;
+  text-align: center;
+}
+
+.contact h3 {
+  color: #f49b42;
+  font-size: 2.2em;
+  margin-bottom: 20px;
+}
+
+.contact p {
+  font-size: 1.2em;
+  margin: 8px 0;
+}
+
+/* City page */
+.city-container {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 40px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  width: 400px;
+  margin: auto;
+}
+
+.city-container h2 {
+  color: #f49b42;
+  margin-bottom: 20px;
+}
+
+.city-container select,
+.city-container button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1em;
+  margin-bottom: 20px;
+}
+
+.city-container button {
+  background-color: #f49b42;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.city-container button:hover {
+  background-color: #e58928;
+}
+
+.parking-list {
+  text-align: left;
+  margin-top: 25px;
+}
+
+.parking-item {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.parking-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.parking-item h3 {
+  margin: 0;
+  color: #f49b42;
+}
+
+.parking-item p {
+  margin: 5px 0 0;
+  font-size: 0.9em;
+  color: #555;
+}
